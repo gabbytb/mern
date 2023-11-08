@@ -1,0 +1,14 @@
+.blog-container {
+    display: flex!important;
+    justify-content: center;
+    margin: 0 auto !important;
+    width: 80% !important;
+}
+.blog-container .blog-posts {
+    display: flex;
+    width: 1080px;
+    justify-content: space-between;
+}
+.card {
+    width: 20rem;
+}

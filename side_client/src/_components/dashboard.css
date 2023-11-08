@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    font-family: 'Red Hat Display', sans-serif;
+    color: #262626;
+    background-color: #F6F5F7 !important;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.welcome {
+    font-size: 24px;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.create-btn {
+    background-color: #6318ff;
+    padding: 14px 23px;
+    margin-left: 20px;
+}
+
+.logout-btn {
+    background-color: red;
+    padding: 14px 18px;
+}
+
+.column-container {
+    align-items: center;
+}
+
+.column-name {
+    margin-left: 5px;
+}
+
+.table-container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+}
+
+.avatar img {
+    border-radius: 100%;
+    margin-right: 8px;
+}
+
+.ant-pagination-item-active {
+    border-color: #6318ff !important;
+}
