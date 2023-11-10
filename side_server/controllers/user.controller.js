@@ -9,16 +9,22 @@ const jwt = require("jsonwebtoken");
 // Create New User
 exports.create = async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
+    // const { username, first_name, last_name, email, password, isActive, role, permission } = req.body;
 
-    try {
-        const { username, first_name, last_name, email, password, isActive } = req.body;
-        if (!(username && password)) {
-            return res.status(400).send({ message: 'All inputs is required' });
+    try {   
+        const {username, first_name, last_name, email, password, isActive, role, permission} = req.body;
+        // Set:- Without providing all these inputs, Form will not submit (Note: This was useed to displace the required attribute being used on the frontend! )
+        if (!(username && first_name && last_name && email && password && isActive)) {
+            const errMsg = res.status(200).send('Fill all entries');
+            console.log("Missing input: ", errMsg);
+            return;
         }
 
-        const existingUser = await User.findOne({ $or: [{ email } || { username }] });
+        const existingUser = await User.findOne({ $or: [ {username} || {email} ] });
         if (existingUser) {
-            return res.status(200).send({ message: `User exists. Please Login`});
+            const errorMessage = res.status(200).send("User exists. Please sign-in.");
+            console.log("Existing User: ", errorMessage);
+            return;
         }
 
         const encryptedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync());
@@ -28,28 +34,32 @@ exports.create = async (req, res) => {
             last_name,
             email: email.toLowerCase(),    // sanitize: convert email to lowercase
             password: encryptedPassword,
-            role: "agent",
-            permission: ["contact-index"],
+            role,
+            permission,
             isActive
         });
         
         const token_key = process.env.TOKEN_KEY;
         const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
-        const token = jwt.sign({user_id: user._id, username}, generatedToken, { expiresIn: "2h" });
+        const token = jwt.sign({user_id: user._id, email}, generatedToken, { expiresIn: "2h" });
         user.token = token;    
             
+
         user.save(user, (err) => {
             if (err) {
-                console.error('Error saving data to Database');
+                console.error('Error saving data to Database', err);
             } else {
-                console.log("*****User Saved to Database: ", user + " *****");
+                console.log(`*****User Saved to Database: ${user} *****`);
             }
         });
-        return res.status(201).json(user);
-    
+        const newUser = res.status(201).json(user);
+        console.log("NEW ACCOUNT: ", newUser);
+        return;
+             
     } catch (err) {      
         console.log(err);
-        return res.status(500).send({ message: err || "Some error occurred while creating new User." });
+        res.status(500).send({ message: err || "Some error occurred while creating new User." });
+        return;
     }
 };
 
@@ -97,12 +107,13 @@ exports.logIn = async (req, res) => {
 
 // Find All Users
 exports.findAll = async (req, res) => {
-    // res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json');
+
     try {
         const allUsers = await User.find({})
         return res.status(200).json(allUsers);
     } catch (error) {
-        return res.status(500).send({ message: "Some error occurred while retrieving users." || error });
+        return res.status(500).send("Some error occurred while retrieving users: ", error);
     }
 };
 

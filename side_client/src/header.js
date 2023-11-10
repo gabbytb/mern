@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logo from './co-logo.jpg';
+import logo from './img/mern.ico';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './app.css';
 

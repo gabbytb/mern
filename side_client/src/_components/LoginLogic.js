@@ -25,8 +25,8 @@ function LoginLogic() {
         permissions: loggedUser.permission,
       });
 
-      // window.location.reload();
-      window.location.replace("http://127.0.0.1:3000/admin/dashboard");
+      window.location.reload();
+      // window.location.replace("http://127.0.0.1:3000/user/login");
       
     } else {
       message.error("Wrong email, please check your email!");

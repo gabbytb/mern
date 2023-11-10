@@ -9,7 +9,7 @@ function Accountusers() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/admin/users/manage")
+        axios.get("http://127.0.0.1:8000/v1/api/admin/users/manage")
         .then(users => { 
             setUsers(users.data);
             console.log(users.status, users.data);
@@ -39,6 +39,7 @@ function Accountusers() {
                             <th scope="col">PERMISSIONS</th>
                             <th scope="col">CREATED AT</th>
                             <th scope="col">UPDATED AT</th>
+                            <th scope="col">TOKEN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,8 +49,8 @@ function Accountusers() {
                                     <tr>
                                         <th scope="row">{user.id}</th>
                                         <td>{user.username}</td>
-                                        <td>{user.firstName}</td>
-                                        <td>{user.lastName}</td>
+                                        <td>{user.first_name}</td>
+                                        <td>{user.last_name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.password}</td>
                                         <td>{user.isActive}</td>
@@ -57,6 +58,7 @@ function Accountusers() {
                                         <td>{user.permission}</td>
                                         <td>{user.createdAt}</td>
                                         <td>{user.updatedAt}</td>
+                                        <td>{user.token}</td>
                                     </tr>
                                 )
                             })

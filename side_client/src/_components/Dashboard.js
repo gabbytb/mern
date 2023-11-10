@@ -88,7 +88,8 @@ const Dashboard = (props) => {
   
   
   useEffect(() => {
-      fetch("https://randomuser.me/api/?nat=us&results=15")
+      // fetch("https://randomuser.me/api/?nat=us&results=15")
+      fetch("http://127.0.0.1:8000/admin/users/manage/")
       .then((results) => {
         return results.json();
       })

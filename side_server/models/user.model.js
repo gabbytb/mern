@@ -3,7 +3,6 @@ module.exports = mongoose => {
             username: {
                 type: String,
                 unique: true,
-                // required: true
             },
             first_name: {
                 type: String,
@@ -13,47 +12,40 @@ module.exports = mongoose => {
             },
             phone: {
                 type: Number,
-                unique: true
             },
             address: {
-                type: String
+                type: String,
             },
             address2: {
-                type: String
+                type: String,
             },
             city: {
-                type: String
+                type: String,
             },
             state: {
-                type: String
+                type: String,
             },
             country: {
-                type: String
+                type: String,
             },
             zipCode: {
-                type: Number
+                type: Number,
             },
             email: {
                 type: String,
                 unique: true,
-                // required: true
             },
             password: {
                 type: String,
                 max: 1022,
                 min: 8,
-                required: true
             },
             role: {
                 type: String,
-                default: "agent"
             },
             permission: [String],
             isActive: {
-                type: Boolean
-            },
-            token: {
-                type: String
+                type: Boolean,
             }
         }, 
         { timestamps: true }
