@@ -21,14 +21,14 @@ exports.create = async (req, res) => {
         }
 
 
-        const emailExists = await User.findOne({email: email.toLowerCase()});
+        const emailExists = await User.findOne({email});
         if (emailExists) {
             const emailExistsMsg = res.status(200).send('User with email exists. Please sign-in.');
             console.log("Existing Email: ", emailExistsMsg);
             return;
         } 
         
-        const usernameExists = await User.findOne({username: username.toLowerCase()});
+        const usernameExists = await User.findOne({username});
         if (usernameExists) {
             const usernameExistsMsg = res.status(200).send('User with username exists. Please sign-in.');
             console.log("Existing Username: ", usernameExistsMsg);
