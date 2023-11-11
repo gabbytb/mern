@@ -67,18 +67,23 @@ function Registration() {
 
         axios.post("http://127.0.0.1:8000/v1/api/admin/users/manage/create", user)
         .then((response) => {
-            if (response.status === 200 && response.data === 'Fill all entries') {
+            if (response.data === 'Fill all entries') {
                 setIsSubmitting(false);
+                // console.log("***STATUS CODE 200: ", response.data);
+                // parse value of response.data to setInputValidation('');
+                // parse response.data value for if inputMissing  =============>  setErrMsg('..here..');
                 setInputValidation("Please fill all required inputs.");              
-                console.log("***STATUS CODE 200: ", response);
                 return;
-            } else if (response.status === 200 && response.data === 'User with email exists. Please sign-in.') {
+            } else if (response.data === 'User with email exists. Please sign-in.') {
                 setIsSubmitting(false);
+                // console.log("***STATUS CODE 200: ", response.data);
+                // parse response.data value for if emailExists  =============>  setEmailExistMsg('..here..');
                 setEmailExistsMsg(`${user.email.toLowerCase()} exists. Please log-in`);
-                // console.log("***STATUS CODE 200: ", response);
                 return;
-            } else if (response.status === 200 && response.data === 'User with username exists. Please sign-in.') {
+            } else if (response.data === 'User with username exists. Please sign-in.') {
                 setIsSubmitting(false);
+                // console.log("***STATUS CODE 200: ", response.data);
+                // parse response.data value for if usernameExists  =============>  setUsernameExistMsg('..here..');
                 setUsernameExistsMsg(`${user.username.toLowerCase()} exists. Please log-in`);
                 // console.log("***STATUS CODE 200: ", response);
                 return;
@@ -92,7 +97,7 @@ function Registration() {
             };
         })
         .catch((error) => {
-            console.log("Error creating new user: ", error);
+            console.log("Error occurred while creating new user: ", error);
         });
     }
 

@@ -13,7 +13,8 @@ exports.create = async (req, res) => {
 
     try {   
         const {username, first_name, last_name, email, password, isActive, role, permission} = req.body;
-        // Set:- Without providing all these inputs, Form will not submit (Note: This was useed to displace the required attribute being used on the frontend! )
+        // *** FORM VALIDATION ==>   unless Users fill these required inputs, Form will not submit.
+        // NOTE: This was used to replace the "required" attribute used for <input /> in the frontend...  E.g <input type="text" required />
         if (!(username && first_name && last_name && email && password && isActive)) {
             const errMsg = res.status(200).send('Fill all entries');
             console.log("Missing input: ", errMsg);
@@ -21,14 +22,14 @@ exports.create = async (req, res) => {
         }
 
 
-        const emailExists = await User.findOne({email});
+        const emailExists = await User.findOne({email: email.toLowerCase()});
         if (emailExists) {
             const emailExistsMsg = res.status(200).send('User with email exists. Please sign-in.');
             console.log("Existing Email: ", emailExistsMsg);
             return;
         } 
         
-        const usernameExists = await User.findOne({username});
+        const usernameExists = await User.findOne({username: username.toLowerCase()});
         if (usernameExists) {
             const usernameExistsMsg = res.status(200).send('User with username exists. Please sign-in.');
             console.log("Existing Username: ", usernameExistsMsg);
