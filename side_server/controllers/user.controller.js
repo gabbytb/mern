@@ -20,26 +20,35 @@ exports.create = async (req, res) => {
             return;
         }
 
-        const existingUser = await User.findOne({ $or: [ {username} || {email} ] });
-        if (existingUser) {
-            const errorMessage = res.status(200).send("User exists. Please sign-in.");
-            console.log("Existing User: ", errorMessage);
+
+        const emailExists = await User.findOne({email: email.toLowerCase()});
+        if (emailExists) {
+            const emailExistsMsg = res.status(200).send('User with email exists. Please sign-in.');
+            console.log("Existing Email: ", emailExistsMsg);
+            return;
+        } 
+        
+        const usernameExists = await User.findOne({username: username.toLowerCase()});
+        if (usernameExists) {
+            const usernameExistsMsg = res.status(200).send('User with username exists. Please sign-in.');
+            console.log("Existing Username: ", usernameExistsMsg);
             return;
         }
 
         const encryptedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync());
         const user = new User({
-            username,
+            username: username.toLowerCase(),
             first_name,
             last_name,
             email: email.toLowerCase(),    // sanitize: convert email to lowercase
             password: encryptedPassword,
             role,
             permission,
-            isActive
+            isActive,
         });
         
-        const token_key = process.env.TOKEN_KEY;
+        const token_key = process.env.TOKEN_KEY
+        console.log(token_key);
         const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
         const token = jwt.sign({user_id: user._id, email}, generatedToken, { expiresIn: "2h" });
         user.token = token;    
@@ -52,13 +61,13 @@ exports.create = async (req, res) => {
                 console.log(`*****User Saved to Database: ${user} *****`);
             }
         });
-        const newUser = res.status(201).json(user);
-        console.log("NEW ACCOUNT: ", newUser);
+        
+        const newAccount = res.status(201).json(user);
+        console.log("New User Created: ", newAccount);
         return;
-             
     } catch (err) {      
-        console.log(err);
-        res.status(500).send({ message: err || "Some error occurred while creating new User." });
+        const errorCaught = res.status(500).send(`Failed to exec Account Creation: ${err}`);
+        console.log("Error Caught for Account Creation: ", errorCaught);
         return;
     }
 };

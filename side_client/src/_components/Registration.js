@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "../app.css";
+// import $ from 'jquery';
 import Header from '../header';
 import axios from 'axios';
 
@@ -18,10 +19,12 @@ function Registration() {
         password: '', 
         isActive: false,
         role: 'agent',
-        permission: ["contact-index"]
+        permission: ["contact-index"],
+        token: ''
     });
-    const [errMsg, setErrMsg] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(null);
+    const [inputValidation, setInputValidation] = useState(null);
+    const [emailExistsMsg, setEmailExistsMsg] = useState(null);
+    const [usernameExistsMsg, setUsernameExistsMsg] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false); 
 
     
@@ -66,50 +69,54 @@ function Registration() {
         .then((response) => {
             if (response.status === 200 && response.data === 'Fill all entries') {
                 setIsSubmitting(false);
-                setErrMsg("Please fill all required inputs.");
+                setInputValidation("Please fill all required inputs.");              
                 console.log("***STATUS CODE 200: ", response);
-                // return;
-            } else if (response.status === 200 && response.data === 'User exists. Please sign-in.') {
+                return;
+            } else if (response.status === 200 && response.data === 'User with email exists. Please sign-in.') {
                 setIsSubmitting(false);
-                setErrorMessage("User Exists. Please log-in");
-                console.log("***STATUS CODE 200: ", response);
-                // return;
+                setEmailExistsMsg(`${user.email.toLowerCase()} exists. Please log-in`);
+                // console.log("***STATUS CODE 200: ", response);
+                return;
+            } else if (response.status === 200 && response.data === 'User with username exists. Please sign-in.') {
+                setIsSubmitting(false);
+                setUsernameExistsMsg(`${user.username.toLowerCase()} exists. Please log-in`);
+                // console.log("***STATUS CODE 200: ", response);
+                return;
             } else {
                 setIsSubmitting(true);
-                // setErrorMessage("User Created Successfully");
-                console.log("***STATUS CODE 201: ", response);
-                // return;
-            }
+                // console.log("***STATUS CODE 200: ", response);
+                setTimeout(() => {
+                    window.location.href = "http://127.0.0.1:3000/user/login";
+                }, 3000);
+                return;
+            };
         })
         .catch((error) => {
-            console.log("Error creating user: ", error);
+            console.log("Error creating new user: ", error);
         });
-        
-
-        // setTimeout(() => {
-        //     window.location.href = "http://127.0.0.1:3000/user/login";
-        // }, 3000);
     }
 
     
     return (
         <div className="Registration">
             <Header />
-
             <main>
-                <div className={`alert ${errorMessage ? 'alert-shown' : 'alert-hidden'}`}>
-                    <h2 className='alert alert-danger'>{errorMessage}</h2>
+                <div className='notification-panel'>
+                    <div className={`alert valhalla ${inputValidation ? 'alert-shown' : 'alert-hidden'}`}>
+                        <h2 className='alert alert-danger'>{inputValidation}</h2>
+                    </div> 
+                    <div className={`alert winter ${emailExistsMsg ? 'alert-shown' : 'alert-hidden'}`}>
+                        <h2 className='alert alert-danger'>{emailExistsMsg}</h2>
+                    </div>
+                    <div className={`alert thrones ${usernameExistsMsg ? 'alert-shown' : 'alert-hidden'}`}>
+                        <h2 className='alert alert-danger'>{usernameExistsMsg}</h2>
+                    </div>                    
                 </div>
-                <div className={`alert ${errMsg ? 'alert-shown' : 'alert-hidden'}`}>
-                    <h2 className='alert alert-danger'>{errMsg}</h2>
-                </div>              
 
                 <h1 className="page-title">CREATE USER</h1>
 
                 <form onSubmit={handleSubmit}>
-                    
-                    <input type="hidden" name="id"></input>
-                    
+                                       
                     <label htmlFor="username">Username
                         <input type="text" name="username" placeholder="Username" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
                     </label>

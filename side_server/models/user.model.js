@@ -46,6 +46,9 @@ module.exports = mongoose => {
             permission: [String],
             isActive: {
                 type: Boolean,
+            },
+            token: {
+                type: String,
             }
         }, 
         { timestamps: true }
