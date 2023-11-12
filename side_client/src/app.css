@@ -64,12 +64,40 @@
 }
 
 /* Bootstrap Controls User Submit Button Response */
+label {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+}
+.alert {
+  display: none;
+}
 .alert-hidden {
   opacity: 0;
   transition: all 250ms linear 5s;
   display: none;
 }
 
+.alert-shown {
+  display: flex;
+}
+form {
+  border: 1px solid black;
+  padding: 30px 20px !important;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+.form-row.d-flex .col {
+  max-width: 48.5%;
+  display: flex;
+}
+.tac.d-flex label.text {
+  flex-flow: row-reverse;
+  justify-content: flex-end;
+  column-gap: 10px;
+}
 
 /* unvisited link */
 /* li:link {

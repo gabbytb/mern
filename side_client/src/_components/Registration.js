@@ -98,17 +98,17 @@ function Registration() {
                 <div className='d-flex container justify-content-center'>
                     <div className='row flex-column' style={{width:360}}>
 
-                        <div className='notification-panel'>
-                            <div className={`alert valhalla ${inputValidation ? 'alert-shown' : 'alert-hidden'}`}>
-                                <h2 className='alert alert-danger'>{inputValidation}</h2>
-                            </div> 
-                            <div className={`alert winter ${emailExistsMsg ? 'alert-shown' : 'alert-hidden'}`}>
-                                <h2 className='alert alert-danger'>{emailExistsMsg}</h2>
-                            </div>
-                            <div className={`alert thrones ${usernameExistsMsg ? 'alert-shown' : 'alert-hidden'}`}>
-                                <h2 className='alert alert-danger'>{usernameExistsMsg}</h2>
-                            </div>                    
+                        {/* <div className='notification-panel'> */}
+                        <div className={`alert valhalla ${inputValidation ? 'alert-shown' : 'alert-hidden'}`}>
+                            <h2 className='alert alert-danger'>{inputValidation}</h2>
+                        </div> 
+                        <div className={`alert winter ${emailExistsMsg ? 'alert-shown' : 'alert-hidden'}`}>
+                            <h2 className='alert alert-danger'>{emailExistsMsg}</h2>
                         </div>
+                        <div className={`alert thrones ${usernameExistsMsg ? 'alert-shown' : 'alert-hidden'}`}>
+                            <h2 className='alert alert-danger'>{usernameExistsMsg}</h2>
+                        </div>                    
+                        {/* </div> */}
 
                         <form onSubmit={handleSubmit}>
 
@@ -117,7 +117,7 @@ function Registration() {
                                 <input type="text" name="username" class="form-control" placeholder="Username" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
                             </label>
 
-                            <div className='form-row'>
+                            <div className='form-row d-flex justify-content-between'>
                                 <div className='col' >
                                     <label htmlFor="first_name">First Name
                                         <input type="text" name="first_name" class="form-control" placeholder="First Name"  onChange={handleChange} onKeyUp={handleOnKeyUp}/>
@@ -148,9 +148,11 @@ function Registration() {
                                 <input type="password" name="password" class="form-control" placeholder="Enter password" onChange={handleChange} onKeyUp={handleOnKeyUp}/>        
                             </label>
 
-                            <label htmlFor="isActive">I agree to terms and condition?
-                                <input type="checkbox" name="isActive" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
-                            </label>
+                            <div className='tac d-flex'>
+                                <label htmlFor="isActive" className='text'>I agree to terms and condition?
+                                    <input type="checkbox" className='checkBox' name="isActive" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
+                                </label>
+                            </div>
 
                             {/* onClick={() => setIsSubmitting(false)} */}
                             <button type="submit" class="form-control" disabled={!validateForm()}>Create account</button>
