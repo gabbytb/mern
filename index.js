@@ -15,6 +15,8 @@ const mongoose = require("mongoose");
 
 
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  SERVER: WEB_APPLICATION_FRAMEWORK
@@ -34,6 +36,7 @@ app.use(cors());
 // app.use(express.urlencoded({ extended: true }));
 // middleware for front-end client to make requests for resources on the back-end server:-  /8000/users === /3000/users
 app.use(express.urlencoded({ extended: false }));
+
 
 
 
@@ -62,38 +65,17 @@ db.mongoose.connect(db.url)
 
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //******************************************    SERVER ROUTES    ******************************************/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 // Simple Backend Route   (*** Home ***)
 app.get("/", (req, res) => {
     res.status(200).send('Welcome to SAF app');
 });
-
-
-// Backend Create User Route
-// app.get("/user/signup", (req, res) => {
-//     res.status(200).send('Sign up');
-// });
-
-
-// // Backend User Log-in Route
-// app.get("/user/login", (req, res) => {
-//     res.status(200).send('Log in');
-// });
-
-
-// // Backend User Dashboard Route
-// app.get("/admin/dashboard", (req, res) => {
-//     res.json({
-//         message: "Dashboard"
-//     })
-// });
-
 
 
 

@@ -6,66 +6,91 @@ const jwt = require("jsonwebtoken");
 
 
 
+
 // Create New User
 exports.create = async (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    // const { username, first_name, last_name, email, password, isActive, role, permission } = req.body;
+    res.setHeader('Content-Type', 'application/json');   
 
     try {   
+        // FORM VALIDATION: These are set as required inputs - Use this instead of <required/> attribute, if you want to display errMssgs!!!
         const {username, first_name, last_name, email, password, isActive, role, permission} = req.body;
-        // *** FORM VALIDATION ==>   unless Users fill these required inputs, Form will not submit.
-        // NOTE: This was used to replace the "required" attribute used for <input /> in the frontend...  E.g <input type="text" required />
         if (!(username && first_name && last_name && email && password && isActive)) {
             const errMsg = res.status(200).send('Fill all entries');
             console.log("Missing input: ", errMsg);
             return;
         }
 
-
         const emailExists = await User.findOne({email: email.toLowerCase()});
+        const usernameExists = await User.findOne({username: username.toLowerCase()});
         if (emailExists) {
             const emailExistsMsg = res.status(200).send('User with email exists. Please sign-in.');
             console.log("Existing Email: ", emailExistsMsg);
             return;
-        } 
-        
-        const usernameExists = await User.findOne({username: username.toLowerCase()});
-        if (usernameExists) {
+        } else if (usernameExists) {
             const usernameExistsMsg = res.status(200).send('User with username exists. Please sign-in.');
             console.log("Existing Username: ", usernameExistsMsg);
             return;
-        }
-
-        const encryptedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync());
-        const user = new User({
-            username: username.toLowerCase(),
-            first_name,
-            last_name,
-            email: email.toLowerCase(),    // sanitize: convert email to lowercase
-            password: encryptedPassword,
-            role,
-            permission,
-            isActive,
-        });
+        } else {
+            const encryptedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync());
+            const user = new User({
+                username: username.toLowerCase(),
+                first_name,
+                last_name,
+                email: email.toLowerCase(),    // sanitize: convert email to lowercase
+                password: encryptedPassword,
+                role,
+                permission,
+                isActive,
+            });
         
-        const token_key = process.env.TOKEN_KEY
-        console.log(token_key);
-        const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
-        const token = jwt.sign({user_id: user._id, email}, generatedToken, { expiresIn: "2h" });
-        user.token = token;    
+            const token_key = process.env.TOKEN_KEY
+            const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
+            const token = jwt.sign({user_id: user._id, email}, generatedToken, { expiresIn: "2h" });
+            user.token = token;
             
 
-        user.save(user, (err) => {
-            if (err) {
-                console.error('Error saving data to Database', err);
-            } else {
-                console.log(`*****User Saved to Database: ${user} *****`);
-            }
-        });
-        
-        const newAccount = res.status(201).json(user);
-        console.log("New User Created: ", newAccount);
-        return;
+            // console.log("************************************");
+            // console.log("***** CHECK: NEW USER ACCOUNT DETAILS *****");
+            // console.log("************************************");
+            // console.log("Username: ", user.username);
+            // console.log("First Name: ", user.first_name);
+            // console.log("Last Name: ", user.last_name);
+            // console.log("Email: ", user.email);
+            // console.log("Password: ", user.password);
+            // console.log("Is Active: ", user.isActive);
+            // console.log("User Role: ", user.role);
+            // console.log("User Permission: ", user.permission);
+            // console.log("Token Generated for User: ", user.token);
+            // console.log("************************************");
+            // console.log("************************************");
+
+
+            user.save(user, (err) => {
+                if (err) {
+                    console.error('Error saving data to Database', err);
+                } else {
+                    console.log("*********************************************************");
+                    console.log("***** USER ACCOUNT SUCCESSFULLY SAVED: User Details *****");
+                    console.log("*********************************************************");
+                    console.log("Username: ", user.username);
+                    console.log("First Name: ", user.first_name);
+                    console.log("Last Name: ", user.last_name);
+                    console.log("Email: ", user.email);
+                    console.log("Password: ", user.password);
+                    console.log("Is Active: ", user.isActive);
+                    console.log("User Role: ", user.role);
+                    console.log("User Permission: ", user.permission);
+                    console.log("Token Generated for User: ", user.token);
+                    console.log("*********************************************************");
+                    console.log("*********************************************************");
+                    // console.log(`*****User Saved to Database: ${user} *****`);
+                }
+            });
+            res.status(201).json(user);
+            // const newAccount = res.status(201).json(user);
+            // console.log("New User Created: ", newAccount);
+            return;
+        }
     } catch (err) {      
         const errorCaught = res.status(500).send(`Failed to exec Account Creation: ${err}`);
         console.log("Error Caught for Account Creation: ", errorCaught);
