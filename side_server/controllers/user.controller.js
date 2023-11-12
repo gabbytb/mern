@@ -10,10 +10,11 @@ const jwt = require("jsonwebtoken");
 // Create New User
 exports.create = async (req, res) => {
     res.setHeader('Content-Type', 'application/json');   
-
+    const {username, first_name, last_name, email, password, isActive, role="agent", permission=["contact-index"]} = req.body;
+    
     try {   
-        // FORM VALIDATION: These are set as required inputs - Use this instead of <required/> attribute, if you want to display errMssgs!!!
-        const {username, first_name, last_name, email, password, isActive, role, permission} = req.body;
+        // FORM VALIDATION: These are set as required inputs:- Use this instead of <required/> attribute, if you want to display errMssgs!!!
+        // const {username, first_name, last_name, email, password, isActive, role="agent", permission=["contact-index"]} = req.body;
         if (!(username && first_name && last_name && email && password && isActive)) {
             const errMsg = res.status(200).send('Fill all entries');
             console.log("Missing input: ", errMsg);
@@ -40,6 +41,8 @@ exports.create = async (req, res) => {
                 password: encryptedPassword,
                 role,
                 permission,
+                // role: "agent",
+                // permission: ["contact-index"],
                 isActive,
             });
         
