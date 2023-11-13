@@ -10,11 +10,13 @@ function Accountusers() {
 
     useEffect(() => {
         axios.get("http://127.0.0.1:8000/v1/api/admin/users/manage")
-        .then(users => { 
-            setUsers(users.data);
-            console.log(users.status, users.data);
+        .then(response => { 
+            setUsers(response.data);
+            console.log(response.status, response.data);
         })
-        .catch(err => console.log(err));
+        .catch((err) => {
+            console.log(err);
+        });
     }, []);
     
 

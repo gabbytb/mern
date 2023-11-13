@@ -18,8 +18,6 @@ function Registration() {
         email: '',
         password: '', 
         isActive: false,
-        // role: '',
-        // permission: [""],
         token: ''
     });
     const [inputValidation, setInputValidation] = useState(null);
@@ -44,11 +42,11 @@ function Registration() {
         console.log('Last Name: ', user.last_name)
         console.log('Email: ', user.email)
         console.log('Password: ', user.password)
-        // console.log('User Role: ', user.role)
-        // console.log('User Permission: ', user.permission)
         console.log('Account isActive: ', user.isActive)
+        console.log('Generated Token: ', user.token)
     }    
     
+
     function handleChange(e) {
         const name = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -58,6 +56,7 @@ function Registration() {
         });
     }         
 
+    
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -79,7 +78,7 @@ function Registration() {
                 setIsSubmitting(true);
                 setTimeout(() => {
                     window.location.href = "http://127.0.0.1:3000/user/login";
-                }, 3000);
+                }, 2500);
                 return;
             };
         })
@@ -110,9 +109,9 @@ function Registration() {
                         </div>                    
                         {/* </div> */}
 
+
                         <form onSubmit={handleSubmit}>
 
-                            
                             <label htmlFor="username">Username
                                 <input type="text" name="username" class="form-control" placeholder="Username" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
                             </label>

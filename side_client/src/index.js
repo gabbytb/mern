@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
-import "bootstrap/dist/css/bootstrap.min.css";
 import './index.css';
 import App from './App';
 import Blog from './_components/Blog';
 import Registration from './_components/Registration';
-import Login from './_components/Login';
-import Dashboard from './_components/Dashboard';
+import Login from './_components/TestLogin';
+import Dashboard from './_components/TestDashboard';
 import Accountusers from './_components/Accountusers';
 
 

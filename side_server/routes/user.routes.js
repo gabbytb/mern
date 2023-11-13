@@ -6,6 +6,9 @@ module.exports = app => {
     // Create a New User
     router.post("/admin/users/manage/create", users.create);
 
+    // Login User
+    // router.post("/auth/login", users.logIn);
+    
     // Retrieve all Users 
     router.get("/admin/users/manage", users.findAll);
 
@@ -23,9 +26,6 @@ module.exports = app => {
 
     // Delete all user entries
     router.delete("/admin/users/manage/delete", users.deleteAllUsers);
-
-    // Login User
-    router.post("/auth/login", users.logIn);
 
     app.use("/v1/api", router);
 

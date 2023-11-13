@@ -11,18 +11,19 @@ const jwt = require("jsonwebtoken");
 exports.create = async (req, res) => {
     res.setHeader('Content-Type', 'application/json');   
     const {username, first_name, last_name, email, password, isActive, role="agent", permission=["contact-index"]} = req.body;
-    
+
     try {   
         // FORM VALIDATION: These are set as required inputs:- Use this instead of <required/> attribute, if you want to display errMssgs!!!
-        // const {username, first_name, last_name, email, password, isActive, role="agent", permission=["contact-index"]} = req.body;
         if (!(username && first_name && last_name && email && password && isActive)) {
             const errMsg = res.status(200).send('Fill all entries');
             console.log("Missing input: ", errMsg);
             return;
-        }
+        }          
 
         const emailExists = await User.findOne({email: email.toLowerCase()});
         const usernameExists = await User.findOne({username: username.toLowerCase()});
+        console.log('Emil Exists: ', emailExists);
+        console.log('Username Exists: ', usernameExists);
         if (emailExists) {
             const emailExistsMsg = res.status(200).send('User with email exists. Please sign-in.');
             console.log("Existing Email: ", emailExistsMsg);
@@ -41,32 +42,15 @@ exports.create = async (req, res) => {
                 password: encryptedPassword,
                 role,
                 permission,
-                // role: "agent",
-                // permission: ["contact-index"],
                 isActive,
             });
-        
+    
+            
             const token_key = process.env.TOKEN_KEY
             const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
-            const token = jwt.sign({user_id: user._id, email}, generatedToken, { expiresIn: "2h" });
+            const token = jwt.sign({userId: user._id, email}, generatedToken, { expiresIn: "2h" });
             user.token = token;
             
-
-            // console.log("************************************");
-            // console.log("***** CHECK: NEW USER ACCOUNT DETAILS *****");
-            // console.log("************************************");
-            // console.log("Username: ", user.username);
-            // console.log("First Name: ", user.first_name);
-            // console.log("Last Name: ", user.last_name);
-            // console.log("Email: ", user.email);
-            // console.log("Password: ", user.password);
-            // console.log("Is Active: ", user.isActive);
-            // console.log("User Role: ", user.role);
-            // console.log("User Permission: ", user.permission);
-            // console.log("Token Generated for User: ", user.token);
-            // console.log("************************************");
-            // console.log("************************************");
-
 
             user.save(user, (err) => {
                 if (err) {
@@ -89,9 +73,9 @@ exports.create = async (req, res) => {
                     // console.log(`*****User Saved to Database: ${user} *****`);
                 }
             });
-            res.status(201).json(user);
-            // const newAccount = res.status(201).json(user);
-            // console.log("New User Created: ", newAccount);
+
+            const newAccount = res.status(201).json(user);
+            console.log("New User Created: ", newAccount);
             return;
         }
     } catch (err) {      
@@ -106,36 +90,32 @@ exports.create = async (req, res) => {
 
 
 
-// Our login logic starts here
-exports.logIn = async (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
 
-    try {   
-        const { email, password } = req.body;
+// exports.logIn = async (req, res) => {
+//     res.setHeader('Content-Type', 'application/json');
+//     const { email, password } = req.body;        
 
-        if (!(email && password)) {
-            return res.status(400).send("Enter e-mail and password");
-        }
-
-        const user = await User.findOne({ email });
-        if (user && (await bcrypt.compare(password, user.password))) {
-            
-            // Create token
-            const token = jwt.sign({user_id: user._id, email}, process.env.TOKEN_KEY, { expiresIn: "2h" });
-
-            // save user token
-            user.token = token;
-
-            // user
-            return res.status(200).json(user);
-        }   
-
-        return res.status(400).send("Invalid Credentials");
-    } 
-    catch (err) {
-        return res.status(500).send({ error: err.message });
-    }
-};
+//     try {
+//         if (!(email && password)) {
+//             const errMsg = res.status(400).send("Enter e-mail and password");
+//             console.log("Missing email & password: ", errMsg);
+//             return;
+//         }
+        
+//         const user = await User.findOne({ email: email.toLowerCase() });  console.log("Found User: ", user);
+        // if (user && (await bcrypt.compare(password, user.password))) {        
+        //     const token = jwt.sign({user_id: user._id, email}, process.env.TOKEN_KEY, { expiresIn: "2h" });
+//             user.token = token;
+//             console.log("***LOGGED-IN SUCCESSFLLY: ", res.status(200).json(user));
+//             return;
+//         } else {
+//             console.log("InINVALID CREDENTIALS: ", res.status(400).send("Invalid Credentials"));
+//         }
+//     } 
+//     catch (err) {
+//         return res.status(500).send("Error occurred during Log-in: ", err);
+//     }
+// };
 
 
 
