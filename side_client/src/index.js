@@ -10,8 +10,8 @@ import './index.css';
 import App from './App';
 import Blog from './_components/Blog';
 import Registration from './_components/Registration';
-import Login from './_components/TestLogin';
-import Dashboard from './_components/TestDashboard';
+import Login from './_components/Login';
+import Dashboard from './_components/Dashboard';
 import Accountusers from './_components/Accountusers';
 
 

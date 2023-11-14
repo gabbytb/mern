@@ -9,6 +9,8 @@ const jwt = require("jsonwebtoken");
 
 // Our login logic starts here
 exports.login = async (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    
     try {
         const { email, password } = req.body;
   

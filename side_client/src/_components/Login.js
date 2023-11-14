@@ -1,36 +1,54 @@
 import React, { useState } from 'react';
-import TestLoginLogic from './TestLoginLogic';
-import TestDashboard from './TestDashboard';
+import LoginLogic from './LoginLogic';
+import Dashboard from './Dashboard';
 
 
 
 
+const Login = () => {
 
-
-const TestLogin = () => {
-  
     const [loggedInUser, setLoggedInUser] = useState(null);
 
-  
-    const handleLogin = (user) => {
-        setLoggedInUser(user);
-    };
 
+    const handleLogin = (user) => {
+        setLoggedInUser(user)
+    }
 
     return (
         <div>
             {
-                loggedInUser ? (<TestDashboard user={loggedInUser} />) : (<TestLoginLogic onLogin={handleLogin} />)
+                loggedInUser ? (<Dashboard user={loggedInUser} />) : (<LoginLogic onLogin={handleLogin} />)
             }
         </div>
-    );
-};
+    )
 
-export default TestLogin;
-
+}
 
 
+export default Login;
 
+
+
+
+
+// const TestLogin = () => {
+  
+//     const [loggedInUser, setLoggedInUser] = useState(null);
+
+  
+//     const handleLogin = (user) => {
+//         setLoggedInUser(user);
+//     };
+
+
+//     return (
+//         <div>
+//             {
+//                 loggedInUser ? (<TestDashboard user={loggedInUser} />) : (<TestLoginLogic onLogin={handleLogin} />)
+//             }
+//         </div>
+//     );
+// };
 
 
 

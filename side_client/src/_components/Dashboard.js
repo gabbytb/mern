@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 
 
 
 const Dashboard = ({ user }) => {
+
+
+  useEffect(() => {
+    document.title = "Dashboard | Samuel Akinola Foundation";
+    
+    setUser(JSON.parse(localStorage.getItem("user")));
+}, []);
+
+
   return (
     <div>
       <h2>Dashboard</h2>

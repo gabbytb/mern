@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 
-const TestLoginLogic = ({ onLogin }) => {
+const LoginLogic = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
@@ -15,18 +15,24 @@ const TestLoginLogic = ({ onLogin }) => {
     const handleLogin = async () => {
       try {
         const response = await axios.post('http://127.0.0.1:8000/user/login', { email, password, });
-  
         const { user, token } = response.data;
-  
-        // Store the token in local storage for future authenticated requests
+
+        
+        // Store the User objest in local storage
+        localStorage.setItem("user", JSON.stringify(user));
+        // Store the token in local storage for future authenticated request
         localStorage.setItem('token', token);
+              
   
+
         // Call the onLogin function passed as a prop with the user information
-        onLogin(user);
+        onLogin({user});
   
+      
         // Redirect the user to the dashboard or perform other actions upon successful login
         console.log('Login successful', user);
 
+        // window.location.reload();
         window.location.replace("http://127.0.0.1:3000/admin/dashboard");
 
       } catch (error) {
@@ -39,14 +45,17 @@ const TestLoginLogic = ({ onLogin }) => {
     return (
       <div>
         <h2>Login</h2>
+
         <label>Email: <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
+        
         <label>Password: <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
+        
         <button onClick={handleLogin}>Login</button>
       </div>
     );
 };
   
-export default TestLoginLogic;
+export default LoginLogic;
 
 
 
