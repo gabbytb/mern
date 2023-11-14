@@ -19,9 +19,11 @@ const LoginLogic = ({ onLogin }) => {
 
         
         // Store the User objest in local storage
-        localStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("userDetails", JSON.stringify(user));
+        sessionStorage.setItem('token', token);        
+      
         // Store the token in local storage for future authenticated request
-        localStorage.setItem('token', token);
+        // localStorage.setItem('token', token);
               
   
 
@@ -33,7 +35,7 @@ const LoginLogic = ({ onLogin }) => {
         console.log('Login successful', user);
 
         // window.location.reload();
-        window.location.replace("http://127.0.0.1:3000/admin/dashboard");
+        // window.location.replace("http://127.0.0.1:3000/admin/dashboard");
 
       } catch (error) {
         // Handle login error

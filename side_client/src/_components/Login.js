@@ -10,14 +10,14 @@ const Login = () => {
     const [loggedInUser, setLoggedInUser] = useState(null);
 
 
-    const handleLogin = (user) => {
-        setLoggedInUser(user)
+    const handleLogin = (userDetails) => {
+        setLoggedInUser(JSON.stringify(userDetails))
     }
 
     return (
         <div>
             {
-                loggedInUser ? (<Dashboard user={loggedInUser} />) : (<LoginLogic onLogin={handleLogin} />)
+                loggedInUser ? (<Dashboard userDetails={loggedInUser}/>) : (<LoginLogic onLogin={handleLogin} />)
             }
         </div>
     )
