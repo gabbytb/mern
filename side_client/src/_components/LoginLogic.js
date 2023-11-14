@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-  
+import Header from '../header';
 
 
 
@@ -17,14 +17,12 @@ const LoginLogic = ({ onLogin }) => {
         const response = await axios.post('http://127.0.0.1:8000/user/login', { email, password, });
         const { user, token } = response.data;
 
-        
         // Store the User objest in local storage
         sessionStorage.setItem("userDetails", JSON.stringify(user));
         sessionStorage.setItem('token', token);        
       
         // Store the token in local storage for future authenticated request
-        // localStorage.setItem('token', token);
-              
+        // localStorage.setItem('token', token);             
   
 
         // Call the onLogin function passed as a prop with the user information
@@ -35,7 +33,7 @@ const LoginLogic = ({ onLogin }) => {
         console.log('Login successful', user);
 
         // window.location.reload();
-        window.location.replace("http://127.0.0.1:3000/admin/dashboard");
+        // window.location.replace("http://127.0.0.1:3000/admin/dashboard");
 
       } catch (error) {
         // Handle login error
@@ -45,14 +43,28 @@ const LoginLogic = ({ onLogin }) => {
   
 
     return (
-      <div>
-        <h2>Login</h2>
+      <div className="Registration">
+          <Header />
+          <main>
+              <h1 className="page-title">Log in</h1>
+              <div className='d-flex container justify-content-center'>
+                  <div className='row flex-column' style={{width:360}}>      
+                      <div id="loginForm" className='loginForm'>
+                          
+                          <label>Email: 
+                              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                          </label>      
+                          
+                          <label>Password: 
+                              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                          </label>                         
 
-        <label>Email: <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
-        
-        <label>Password: <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
-        
-        <button onClick={handleLogin}>Login</button>
+                          <button onClick={handleLogin}>Login</button>
+
+                      </div>
+                  </div>
+              </div>
+          </main>
       </div>
     );
 };
