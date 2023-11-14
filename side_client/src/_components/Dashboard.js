@@ -1,17 +1,30 @@
 import React, { useEffect } from 'react';
+// import { HasAccess } from "@permify/react-role";
 
 
 
 
 
 
-const Dashboard = ({ userDetails }) => {
 
-  userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
-  const userEmail = userDetails ? userDetails.email : 'User';
-  const userUsername = userDetails ? userDetails.username : 'User';
-  const userFirstName = userDetails ? userDetails.first_name : 'User';
+
+const Dashboard = ({ loggedInUser }) => {
+
+
+  loggedInUser = JSON.parse(sessionStorage.getItem('userDetails'));
+  const userEmail = loggedInUser ? loggedInUser.email : 'User';
+  const userUsername = loggedInUser ? loggedInUser.username : 'User';
+  const userFirstName = loggedInUser ? loggedInUser.first_name : 'User';
   
+  
+
+  function logoutHandler() {
+    sessionStorage.clear();
+    window.location.replace("http://127.0.0.1:3000/user/login");
+  }
+
+
+
   useEffect(() => {
     document.title = "Dashboard | Samuel Akinola Foundation";
   }, []);
@@ -24,6 +37,17 @@ const Dashboard = ({ userDetails }) => {
       {/* Add more dashboard content as needed */}
       <p>Welcome, {userUsername}!</p>
       <p>Welcome, {userFirstName}!</p>
+
+
+
+      <div className="button-container">
+          <div className="button logout-btn" onClick={logoutHandler}>
+            <div className='button'>Log out</div>
+          </div>
+          {/* <HasAccess roles={["admin", "editor"]} permissions="contact-create" renderAuthFailed={null}>
+            <div className="button create-btn">Create Contact</div>
+          </HasAccess> */}
+        </div>
     </div>
   );
 };

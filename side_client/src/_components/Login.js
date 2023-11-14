@@ -7,17 +7,17 @@ import Dashboard from './Dashboard';
 
 const Login = () => {
 
-    const [loggedInUser, setLoggedInUser] = useState(null);
+    const [user, setUser] = useState(null);
 
 
-    const handleLogin = (userDetails) => {
-        setLoggedInUser(JSON.stringify(userDetails))
+    const handleLogin = (loggedInUser) => {
+        setUser('userDetails', JSON.stringify(loggedInUser));
     }
 
     return (
         <div>
             {
-                loggedInUser ? (<Dashboard userDetails={loggedInUser}/>) : (<LoginLogic onLogin={handleLogin} />)
+                user ? (<Dashboard loggedInUser={user}/>) : (<LoginLogic onLogin={handleLogin} />)
             }
         </div>
     )

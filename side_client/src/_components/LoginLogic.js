@@ -35,7 +35,7 @@ const LoginLogic = ({ onLogin }) => {
         console.log('Login successful', user);
 
         // window.location.reload();
-        // window.location.replace("http://127.0.0.1:3000/admin/dashboard");
+        window.location.replace("http://127.0.0.1:3000/admin/dashboard");
 
       } catch (error) {
         // Handle login error

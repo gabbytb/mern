@@ -18,7 +18,6 @@ function Registration() {
         email: '',
         password: '', 
         isActive: false,
-        token: ''
     });
     const [inputValidation, setInputValidation] = useState(null);
     const [emailExistsMsg, setEmailExistsMsg] = useState(null);
@@ -43,7 +42,6 @@ function Registration() {
         console.log('Email: ', user.email)
         console.log('Password: ', user.password)
         console.log('Account isActive: ', user.isActive)
-        console.log('Generated Token: ', user.token)
     }    
     
 

@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken");
 
 
 
+
+
 // Our login logic starts here
 exports.login = async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
@@ -23,7 +25,8 @@ exports.login = async (req, res) => {
             const token = jwt.sign({ userId: user._id, email}, process.env.TOKEN_KEY, { expiresIn: "2h" });            
             
             // Send the token and user information in the response
-            console.log("INFORMATION RECEIVED: ", res.status(200).json({ token, user }));
+            res.status(200).json({ user, token });
+            // console.log("INFORMATION RECEIVED: ", res.status(200).json({ user, token }));
         } else {
             // Authentication failed
             const errMsg = res.status(401).send('Invalid credentials');
