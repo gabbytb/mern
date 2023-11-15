@@ -197,8 +197,16 @@ exports.updateUser = async (req, res) => {
         // Use $or to find the user by username or email and update it
         const updatedUser = await User.findOneAndUpdate({ $or: [{ username }, { email }] }, dataToUpdate, { new: true });
         if (updatedUser) {
+
+            const token_key = process.env.TOKEN_KEY
+            const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
+            const token = jwt.sign({userId: updatedUser._id, email}, generatedToken, { expiresIn: "2h" });
+            updatedUser.token = token;
+            
             // User updated successfully
-            return res.status(200).json({ message: 'User updated successfully', updatedUser });
+            res.status(200).json({ message: 'User updated successfully', updatedUser });
+            console.log('\n', "EXISTING USER: ", updatedUser.username + " was updated!", '\n', "EXISITNG USER UPDATED: ", updatedUser);
+            return;
         } else {
             // User not found
             return res.status(404).json({ message: 'User not found' });
