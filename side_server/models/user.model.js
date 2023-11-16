@@ -1,4 +1,5 @@
 module.exports = mongoose => {
+    // var randomNumber = Math.floor(1 + Math.random());
     var userSchema = new mongoose.Schema({
             username: {
                 type: String,
@@ -53,11 +54,37 @@ module.exports = mongoose => {
         }, 
         { timestamps: true }
     );
-    
-        
+            
+
     const User = mongoose.model("User", userSchema);
     // User.create({ username: "admin", first_name: "Oyebanji", last_name: "Gabriel", phone: 2347038662402, address: '11a, Chidison str', address2: '14, Lekan Muritala str, Aboru, Lagos', city: 'Iba', state: 'Oyo', country: 'Nigeria', zipCode: 23401, email: "igabrieloyebanji@gmail.com", password: "Administrativerightsonly", role: "admin", permission: ["project-index", "project-create", "project-delete"], isActive: true });
     // console.log("***** Created New User: ", User);
     return User;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Rename "_id" to "id" in the JSON representation
+// userSchema.virtual('id').get(function () {
+//     return this._id.toHexString();
+// });
+
+// userSchema.method("toJSON", function() {
+//     const { _v, _id, ...object } = this.toObject();
+//     object.id = _id;
+//     return object;
+// });

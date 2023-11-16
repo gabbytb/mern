@@ -11,7 +11,7 @@ import axios from 'axios';
 
 function Registration() {
     
-    const [user, setUser] = useState({
+    const [user, setUser] = useState({        
         username: '', 
         first_name: '', 
         last_name: '', 
@@ -34,15 +34,15 @@ function Registration() {
         return user.email.length > 0 && user.password.length > 0;
     }    
 
-    function handleOnKeyUp(e) {
-        console.clear();
-        console.log('Username: ', user.username)
-        console.log('First Name: ', user.first_name)
-        console.log('Last Name: ', user.last_name)
-        console.log('Email: ', user.email)
-        console.log('Password: ', user.password)
-        console.log('Account isActive: ', user.isActive)
-    }    
+    // function handleOnKeyUp(e) {
+    //     console.clear();
+    //     console.log('Username: ', user.username)
+    //     console.log('First Name: ', user.first_name)
+    //     console.log('Last Name: ', user.last_name)
+    //     console.log('Email: ', user.email)
+    //     console.log('Password: ', user.password)
+    //     console.log('Account isActive: ', user.isActive)
+    // }    
     
 
     function handleChange(e) {
@@ -52,7 +52,13 @@ function Registration() {
           ...user,
           [name]: value
         });
-    }         
+    }      
+    
+
+    function handleOnKeyUp(e) {
+        console.clear();
+        console.log(`COLLECTING USER DETAILS.....\nUsername: ${user.username} \nFull Name: ${user.first_name} ${user.last_name} \nEmail: ${user.email} \nPassword: ${user.password} \nisActive: ${user.isActive}`);
+    }
 
     
     function handleSubmit(e) {
@@ -60,9 +66,9 @@ function Registration() {
 
         axios.post("http://127.0.0.1:8000/v1/api/admin/users/manage/create", user)
         .then((response) => {
-            if (response.data === 'Fill all entries') {
+            if (response.data === 'Fill all the required inputs') {
                 setIsSubmitting(false);
-                setInputValidation("Please fill all required inputs.");              
+                setInputValidation("Fill all the required inputs.");              
                 return;
             } else if (response.data === 'User with email exists. Please sign-in.') {
                 setIsSubmitting(false);
@@ -74,9 +80,9 @@ function Registration() {
                 return;
             } else {
                 setIsSubmitting(true);
-                setTimeout(() => {
-                    window.location.href = "http://127.0.0.1:3000/user/login";
-                }, 2500);
+                // setTimeout(() => {
+                //     window.location.href = "http://127.0.0.1:3000/user/login";
+                // }, 2500);
                 return;
             };
         })
@@ -90,12 +96,11 @@ function Registration() {
         <div className="Registration">
             <Header />
             <main>
-                <h1 className="page-title">CREATE USER</h1>
+                <h1 className="page-title">Sign Up</h1>
 
                 <div className='d-flex container justify-content-center'>
-                    <div className='row flex-column' style={{width:360}}>
+                    <div className='row flex-column mx-auto' style={{width:360}}>
 
-                        {/* <div className='notification-panel'> */}
                         <div className={`alert valhalla ${inputValidation ? 'alert-shown' : 'alert-hidden'}`}>
                             <h2 className='alert alert-danger'>{inputValidation}</h2>
                         </div> 
@@ -105,24 +110,21 @@ function Registration() {
                         <div className={`alert thrones ${usernameExistsMsg ? 'alert-shown' : 'alert-hidden'}`}>
                             <h2 className='alert alert-danger'>{usernameExistsMsg}</h2>
                         </div>                    
-                        {/* </div> */}
 
-
-                        <form onSubmit={handleSubmit}>
-
+                        <form className='' onSubmit={handleSubmit}>
                             <label htmlFor="username">Username
-                                <input type="text" name="username" class="form-control" placeholder="Username" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
+                                <input type="text" name="username" className="form-control" placeholder="Username" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
                             </label>
 
                             <div className='form-row d-flex justify-content-between'>
                                 <div className='col' >
                                     <label htmlFor="first_name">First Name
-                                        <input type="text" name="first_name" class="form-control" placeholder="First Name"  onChange={handleChange} onKeyUp={handleOnKeyUp}/>
+                                        <input type="text" name="first_name" className="form-control" placeholder="First Name"  onChange={handleChange} onKeyUp={handleOnKeyUp}/>
                                     </label>
                                 </div>
                                 <div className='col'>
                                     <label htmlFor="last_name">Last Name
-                                        <input type="text" name="last_name" class="form-control" placeholder="Last Name" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
+                                        <input type="text" name="last_name" className="form-control" placeholder="Last Name" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
                                     </label>
                                 </div>
                             </div>
@@ -138,11 +140,11 @@ function Registration() {
                             </label> */}
 
                             <label htmlFor="email">Email
-                                <input type="email" name="email" class="form-control" placeholder="Enter e-mail" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
+                                <input type="email" name="email" className="form-control" placeholder="Enter e-mail" onChange={handleChange} onKeyUp={handleOnKeyUp}/>
                             </label>
                         
                             <label htmlFor="password">Password
-                                <input type="password" name="password" class="form-control" placeholder="Enter password" onChange={handleChange} onKeyUp={handleOnKeyUp}/>        
+                                <input type="password" name="password" className="form-control" placeholder="Enter password" onChange={handleChange} onKeyUp={handleOnKeyUp}/>        
                             </label>
 
                             <div className='tac d-flex'>
@@ -152,7 +154,7 @@ function Registration() {
                             </div>
 
                             {/* onClick={() => setIsSubmitting(false)} */}
-                            <button type="submit" class="form-control" disabled={!validateForm()}>Create account</button>
+                            <button type="submit" className="form-control" disabled={!validateForm()}>Create account</button>
 
                             <div className={`alert alert-success ${isSubmitting ? 'alert-shown' : 'alert-hidden'}`} onTransitionEnd={() => setIsSubmitting(false)}>
                                 <strong className='isSubmitting'>submitting...</strong>

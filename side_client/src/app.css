@@ -70,24 +70,30 @@ label {
   flex-flow: column;
 }
 .alert {
-  display: none;
+  justify-content: center;
+}
+.alert h2.alert {
+  font-size: 14px;
+  margin-bottom: 0;
+  line-height: 23px;
+}
+.alert-shown {
+  display: flex;
 }
 .alert-hidden {
   opacity: 0;
   transition: all 250ms linear 5s;
   display: none;
 }
-
-.alert-shown {
-  display: flex;
-}
 form {
   border: 1px solid black;
-  padding: 30px 20px !important;
+  padding: 40px 20px 50px !important;
   height: fit-content;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
+  border: 1px solid white;
+  border-radius: 8px;
 }
 .form-row.d-flex .col {
   max-width: 48.5%;
@@ -122,16 +128,21 @@ form {
 .header a.active, .active {
   font-weight: 600;
 }
-
+main {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
 main h1.page-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.5px;
   word-spacing: 1px;
   margin: 0 auto 50px;
-  padding: 35px 0;
+  padding: 28px 0;
   background-color: #062243;
   color: white;
+  width: 100%;
 }
 

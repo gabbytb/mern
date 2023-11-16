@@ -7,30 +7,32 @@ const jwt = require("jsonwebtoken");
 
 
 
+
+
+
+
 // Create New User
 exports.create = async (req, res) => {
-    res.setHeader('Content-Type', 'application/json');   
-    const {username, first_name, last_name, email, password, isActive, role="agent", permission=["contact-index"]} = req.body;
 
+    const {username, first_name, last_name, email, password, isActive, role="admin", permission=["project-index", "project-create", "project-delete"]} = req.body;
+    
     try {   
-        // FORM VALIDATION: These are set as required inputs:- Use this instead of <required/> attribute, if you want to display errMssgs!!!
+        // FORM VALIDATION:  If any of these fields, is missing in the payload, display 'errMsg' !!!!
         if (!(username && first_name && last_name && email && password && isActive)) {
-            const errMsg = res.status(200).send('Fill all entries');
-            console.log("Missing input: ", errMsg);
+            const errMsg = res.status(200).send('Fill all the required inputs');
+            console.log("Fill all the required inputs: ", errMsg);
             return;
         }          
 
         const emailExists = await User.findOne({email: email.toLowerCase()});
         const usernameExists = await User.findOne({username: username.toLowerCase()});
-        console.log('Emil Exists: ', emailExists);
-        console.log('Username Exists: ', usernameExists);
         if (emailExists) {
             const emailExistsMsg = res.status(200).send('User with email exists. Please sign-in.');
-            console.log("Existing Email: ", emailExistsMsg);
+            console.log("Email exists: ", emailExistsMsg);
             return;
         } else if (usernameExists) {
             const usernameExistsMsg = res.status(200).send('User with username exists. Please sign-in.');
-            console.log("Existing Username: ", usernameExistsMsg);
+            console.log("Username exists: ", usernameExistsMsg);
             return;
         } else {
             const encryptedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync());
@@ -44,38 +46,41 @@ exports.create = async (req, res) => {
                 permission,
                 isActive,
             });
-    
-            
+
             const token_key = process.env.TOKEN_KEY
             const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
-            const token = jwt.sign({userId: user._id, email}, generatedToken, { expiresIn: "2h" });
+            const token = jwt.sign({user_Id: user._id, email}, generatedToken, { expiresIn: "2h" });
             user.token = token;
-            
 
             user.save(user, (err) => {
                 if (err) {
-                    console.error('Error saving data to Database', err);
+                    console.error(`Error encountered when saving USER: `, err);
                 } else {
-                    console.log("*********************************************************");
-                    console.log("***** USER ACCOUNT SUCCESSFULLY SAVED: User Details *****");
-                    console.log("*********************************************************");
-                    console.log("Username: ", user.username);
-                    console.log("First Name: ", user.first_name);
-                    console.log("Last Name: ", user.last_name);
-                    console.log("Email: ", user.email);
-                    console.log("Password: ", user.password);
-                    console.log("Is Active: ", user.isActive);
-                    console.log("User Role: ", user.role);
-                    console.log("User Permission: ", user.permission);
-                    console.log("Token Generated for User: ", user.token);
-                    console.log("*********************************************************");
-                    console.log("*********************************************************");
-                    // console.log(`*****User Saved to Database: ${user} *****`);
+                    // console.log("*********************************************************");
+                    // console.log("***** USER ACCOUNT SUCCESSFULLY SAVED: User Details *****");
+                    // console.log("*********************************************************");
+                    // console.log("User ID: ", user._id);
+                    // console.log("Username: ", user.username);
+                    // console.log("First Name: ", user.first_name);
+                    // console.log("Last Name: ", user.last_name);
+                    // console.log("Email: ", user.email);
+                    // console.log("Password: ", user.password);
+                    // console.log("Is Active: ", user.isActive);
+                    // console.log("User Role: ", user.role);
+                    // console.log("User Permission: ", user.permission);
+                    // console.log("Token Generated for User: ", user.token);
+                    // console.log("*********************************************************");
+                    // console.log("*********************************************************");
+                    // console.log("*********************************************************");
+                    // console.log("***** USER ACCOUNT SUCCESSFULLY SAVED: User Details *****");
+                    // console.log("*********************************************************");
+                    console.log(`\n*********************************************************\n*****        USER ACCOUNT SUCCESSFULLY SAVED        ***** \n********************************************************* \n ${user} \n*********************************************************\n*********************************************************`);
                 }
             });
 
-            const newAccount = res.status(201).json(user);
-            console.log("New User Created: ", newAccount);
+            // Pass to a 'Variable' to Display User Details in Front-end !!!
+            res.status(201).json(user);
+            // console.log("New User Created: ", newAccount);
             return;
         }
     } catch (err) {      
@@ -144,7 +149,7 @@ exports.findAll = async (req, res) => {
 exports.findUserById = async (req, res) => {
     //  res.setHeader('Content-Type', 'application/json');
     //  This method is typically used to look up a user by their unique identifier.
-    const id = req.params.id;
+    const id = req.params._id;
     try{
         //  The response body(i.e userId) will contain the user document.
         //  NOTE:  This is a query operation:- User.findById();
@@ -200,7 +205,7 @@ exports.updateUser = async (req, res) => {
 
             const token_key = process.env.TOKEN_KEY
             const generatedToken = token_key || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyX2lkIjoiNjU0MjQzNDFhY2FiZWM5YjdhYTI4YzZiIiwiaWF0IjoxNjpgstre";
-            const token = jwt.sign({userId: updatedUser._id, email}, generatedToken, { expiresIn: "2h" });
+            const token = jwt.sign({user_Id: updatedUser._id, email}, generatedToken, { expiresIn: "2h" });
             updatedUser.token = token;
             
             // User updated successfully
@@ -226,10 +231,10 @@ exports.updateUser = async (req, res) => {
 // Deleta a User with the Specified id in the request
 exports.deleteUser = async (req, res) => {
     //  res.setHeader('Content-Type', 'application/json');
-    const id = req.params.id;
+    const id = req.params._id;
     try{
         const userId = User.findByIdAndRemove(id, { useFindAndModify: false })
-        if (!userId) {
+        if (!(userId)) {
             return res.status(404).json({ message: `Cannot delete User with ID = ${id}. User was not found!` });
         } else {
             return res.status(200).json({ message: "User deleted successfully!", userId});
