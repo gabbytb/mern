@@ -12,8 +12,12 @@ import Blog from './_components/Blog';
 import Registration from './_components/Registration';
 import Login from './_components/Login';
 import Dashboard from './_components/Dashboard';
-import CreatePost from './_components/posts/CreatePost';
-import Accountusers from './_components/Accountusers';
+// USERS MANAGEMENT
+import AccountUsers from './_components/AccountUsers';
+// BLOG POSTS MANAGEMENT
+import CreatePost from './_components/posts/createPost';
+
+
 
 
 
@@ -27,7 +31,7 @@ root.render(
         <Route path="/user/signup" element={<Registration />}></Route>
         <Route path="/user/login" element={<Login />}></Route>
         <Route path="/admin/dashboard" element={<Dashboard />}></Route>
-        <Route path="/admin/users/manage" element={<Accountusers />}></Route>
+        <Route path="/admin/users/manage" element={<AccountUsers />}></Route>
         <Route path="/admin/posts/manage/create" element={<CreatePost />}></Route>
       </Routes>
     </Router>
