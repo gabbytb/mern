@@ -46,11 +46,6 @@ const CreatePost = () => {
         e.preventDefault();
 
         axios.post('https://127.0.0.1:8000/v1/api/admin/posts/manage/create', post)
-        // .then((response) => {
-        //     if (response.data.isActive === false) {
-                
-        //     }
-        // })
         .then((response) => { 
             console.log('Creating New Post: ', response.data)
         })
@@ -58,6 +53,7 @@ const CreatePost = () => {
             console.log('Error encountered while saving New Post: ', error);
         })
     }
+
 
     return (
         <div className="Registration">
