@@ -10,7 +10,13 @@ import Header from '../header';
 const LoginLogic = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-  
+    const [loginErrMsg, setLoginErrMsg] = useState(null);
+
+    function handleOnKeyUp(e) {
+      console.clear();
+      console.log(`COLLECTING USER DETAILS.....\nEmail: ${email} \nPassword: ${password}`);
+    }
+
 
     const handleLogin = async () => {
       try {
@@ -33,11 +39,12 @@ const LoginLogic = ({ onLogin }) => {
         console.log('Login successful', user);
 
         // window.location.reload();
-        // window.location.replace("http://127.0.0.1:3000/admin/dashboard");
+        window.location.replace("http://127.0.0.1:3000/admin/dashboard");
 
       } catch (error) {
         // Handle login error
         console.error('Login failed:', error.response.data);
+        setLoginErrMsg(error.response.data);
       }
     };
   
@@ -47,16 +54,21 @@ const LoginLogic = ({ onLogin }) => {
           <Header />
           <main>
               <h1 className="page-title">Log in</h1>
+
+              <div className={`alert loginErrMsg ${loginErrMsg ? 'alert-shown' : 'alert-hidden'}`}>
+                  <h2>{loginErrMsg}</h2>
+              </div>
+              
               <div className='d-flex container justify-content-center'>
                   <div className='row flex-column' style={{width:360}}>      
                       <div id="loginForm" className='loginForm'>
                           
-                          <label>Email: 
-                              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                          <label htmlFor="email">Email
+                              <input type="email" className="form-control" placeholder="Enter e-mail" value={email} onChange={(e) => setEmail(e.target.value)} onKeyUp={handleOnKeyUp}/>
                           </label>      
                           
-                          <label>Password: 
-                              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                          <label htmlFor="password">Password
+                              <input type="password" className="form-control" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyUp={handleOnKeyUp}/>
                           </label>                         
 
                           <button onClick={handleLogin}>Login</button>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 // import { HasAccess } from "@permify/react-role";
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -10,12 +10,8 @@ import React, { useEffect } from 'react';
 
 const Dashboard = ({ loggedInUser }) => {
 
-
   loggedInUser = JSON.parse(sessionStorage.getItem('userDetails'));
-  const userEmail = loggedInUser ? loggedInUser.email : 'User';
-  const userUsername = loggedInUser ? loggedInUser.username : 'User';
-  const userFirstName = loggedInUser ? loggedInUser.first_name : 'User';
-  
+  const userEmail = loggedInUser ? loggedInUser.email : logoutHandler();
   
 
   function logoutHandler() {
@@ -24,9 +20,8 @@ const Dashboard = ({ loggedInUser }) => {
   }
 
 
-
   useEffect(() => {
-    document.title = "Dashboard | Samuel Akinola Foundation";
+    document.title = "Create Article > Dashboard | Samuel Akinola Foundation";
   }, []);
 
 
@@ -35,19 +30,21 @@ const Dashboard = ({ loggedInUser }) => {
       <h2>Dashboard</h2>
       <p>Welcome, {userEmail}!</p>
       {/* Add more dashboard content as needed */}
-      <p>Welcome, {userUsername}!</p>
-      <p>Welcome, {userFirstName}!</p>
-
-
-
+  
       <div className="button-container">
-          <div className="button logout-btn" onClick={logoutHandler}>
-            <div className='button'>Log out</div>
-          </div>
-          {/* <HasAccess roles={["admin", "editor"]} permissions="contact-create" renderAuthFailed={null}>
-            <div className="button create-btn">Create Contact</div>
-          </HasAccess> */}
+        <div className="button logout-btn" onClick={logoutHandler}>
+          <div className='button'>Log out</div>
         </div>
+        {/* <HasAccess roles={["admin", "editor"]} permissions="contact-create" renderAuthFailed={null}>
+          <div className="button create-btn">Create Contact</div>
+        </HasAccess> */}
+      </div>
+
+
+      <div>
+        <Link to="http://127.0.0.1:3000/admin/posts/manage/create">Create Article</Link>
+      </div>
+
     </div>
   );
 };

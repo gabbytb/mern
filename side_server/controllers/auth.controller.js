@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
             // Send the token and user information in the response
             res.status(200).json({ user, token });
 
-            console.log("\n", "***** USER THAT IS LOGGED-IN *****", '\n', "USER USERNAME: ", user.username, '\n', "USER NAME: ", user.first_name + " " + user.last_name, "\n", "USER EMAIL: ", user.email,'\n', "USER TOKEN: ", user.token, "\n\n", "TOKEN GENERATED FOR USER: ", token);
+            console.log("\n", "***** USER THAT IS LOGGED-IN *****", '\n', "USERNAME: ", user.username, '\n', "FULL NAME: ", user.first_name + " " + user.last_name, "\n", "USER EMAIL: ", user.email,'\n', "USER TOKEN: ", user.token, "\n\n", "TOKEN GENERATED FOR USER: ", token);
             // console.log("TOKEN GENERATED: ", token);
 
         } else {
