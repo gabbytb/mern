@@ -71,9 +71,6 @@ exports.create = async (req, res) => {
                     // console.log("Token Generated for User: ", user.token);
                     // console.log("*********************************************************");
                     // console.log("*********************************************************");
-                    // console.log("*********************************************************");
-                    // console.log("***** USER ACCOUNT SUCCESSFULLY SAVED: User Details *****");
-                    // console.log("*********************************************************");
                     console.log(`\n*********************************************************\n*****        USER ACCOUNT SUCCESSFULLY SAVED        ***** \n********************************************************* \n ${user} \n*********************************************************\n*********************************************************`);
                 }
             });
@@ -85,42 +82,10 @@ exports.create = async (req, res) => {
         }
     } catch (err) {      
         const errorCaught = res.status(500).send(`Failed to exec Account Creation: ${err}`);
-        console.log("Error Caught for Account Creation: ", errorCaught);
+        console.log("Error Caught during Account Creation: ", errorCaught);
         return;
     }
 };
-
-
-
-
-
-
-
-// exports.logIn = async (req, res) => {
-//     res.setHeader('Content-Type', 'application/json');
-//     const { email, password } = req.body;        
-
-//     try {
-//         if (!(email && password)) {
-//             const errMsg = res.status(400).send("Enter e-mail and password");
-//             console.log("Missing email & password: ", errMsg);
-//             return;
-//         }
-        
-//         const user = await User.findOne({ email: email.toLowerCase() });  console.log("Found User: ", user);
-        // if (user && (await bcrypt.compare(password, user.password))) {        
-        //     const token = jwt.sign({user_id: user._id, email}, process.env.TOKEN_KEY, { expiresIn: "2h" });
-//             user.token = token;
-//             console.log("***LOGGED-IN SUCCESSFLLY: ", res.status(200).json(user));
-//             return;
-//         } else {
-//             console.log("InINVALID CREDENTIALS: ", res.status(400).send("Invalid Credentials"));
-//         }
-//     } 
-//     catch (err) {
-//         return res.status(500).send("Error occurred during Log-in: ", err);
-//     }
-// };
 
 
 
@@ -195,7 +160,7 @@ exports.updateUser = async (req, res) => {
     //  res.setHeader('Content-Type', 'application/json');
     const {username, phone, address, address2, city, state, country, zipCode, email} = req.body;
     const dataToUpdate = {   
-        phone, address, address2, city, state, country, zipCode
+        phone, address, address2, city, state, country, zipCode, token
     };
 
     try {

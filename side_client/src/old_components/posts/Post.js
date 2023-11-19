@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "../header";
+import Header from "../../header";
 import "./posts/posts.css";
-import Post1 from "./posts/post1";
-import Post2 from "./posts/post2";
-import Post3 from "./posts/post3";
+import Post1 from "./post1";
+import Post2 from "./post2";
+import Post3 from "./post3";
 
 
-export default function Blog() {
+export default function Post() {
 
 
     return (

@@ -1,5 +1,4 @@
 module.exports = mongoose => {
-    // var randomNumber = Math.floor(1 + Math.random());
     var userSchema = new mongoose.Schema({
             username: {
                 type: String,

@@ -78,8 +78,17 @@ app.get("/", (req, res) => {
 });
 
 
+
+
+
+
 // IMPORT: ROUTE of USER MODEL CRUD Operations
 require("./side_server/routes/user.routes")(app);
+// IMPORT: ROUTE of BLOG-POST MODEL CRUD Operations
+require("./side_server/routes/blog.routes")(app);
+
+
+
 
 
 // Log-in Route

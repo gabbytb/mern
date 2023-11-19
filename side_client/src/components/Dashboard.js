@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 // import { HasAccess } from "@permify/react-role";
-import { Link } from 'react-router-dom';
-
 
 
 
@@ -21,7 +19,7 @@ const Dashboard = ({ loggedInUser }) => {
 
 
   useEffect(() => {
-    document.title = "Create Article > Dashboard | Samuel Akinola Foundation";
+    document.title = "Dashboard | Samuel Akinola Foundation";
   }, []);
 
 
@@ -39,12 +37,6 @@ const Dashboard = ({ loggedInUser }) => {
           <div className="button create-btn">Create Contact</div>
         </HasAccess> */}
       </div>
-
-
-      <div>
-        <Link to="http://127.0.0.1:3000/admin/posts/manage/create">Create Article</Link>
-      </div>
-
     </div>
   );
 };

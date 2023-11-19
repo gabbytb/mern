@@ -26,6 +26,7 @@ db.url = dbConfig.url;
 // a) db.users === 'User Model'
 // b) Always require mongoose for 'User Model' connection & interaction with DataBase.
 db.users = require("./user.model.js")(mongoose);
+db.blogs = require("./blog.model.js")(mongoose);
 
 
 
