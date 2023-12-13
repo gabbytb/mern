@@ -15,7 +15,9 @@ import Dashboard from './components/Dashboard';
 // USERS MANAGEMENT
 import AccountUsers from './components/AccountUsers';
 // BLOG POSTS MANAGEMENT
-import BlogPost from './components/BlogPost';
+import CreatePost from './components/CreatePost';
+import Blog from './components/Blog';
+import BlogDetails from './assets/blog/BlogDetails';
 
 
 
@@ -35,7 +37,9 @@ root.render(
         <Route path="/user/login" element={<Login />}></Route>
         <Route path="/admin/dashboard" element={<Dashboard />}></Route>
         <Route path="/admin/users/manage" element={<AccountUsers />}></Route>
-        <Route path="/admin/posts/manage/create" element={<BlogPost />}></Route>
+        <Route path="/blog" element={<Blog />}></Route>
+        <Route path="/blog/:blogId" component={<BlogDetails />}></Route>
+        <Route path="/admin/posts/manage/create" element={<CreatePost />}></Route>
       </Routes>
     </Router>
   </React.StrictMode>

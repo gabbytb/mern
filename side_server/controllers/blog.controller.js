@@ -13,7 +13,7 @@ const jwt = require("jsonwebtoken");
 // Create New Blog Post
 exports.create = async (req, res) => {
 
-    const { post_title, post_description, post_author, post_tags, post_categories, isPublished=true } = req.body;
+    const { post_img, post_title, post_description, post_author, post_tags, post_categories, isPublished=true } = req.body;
     
     try {   
         // FORM VALIDATION:  If any of these fields, is missing in the payload, display 'errMsg' !!!!
@@ -30,6 +30,7 @@ exports.create = async (req, res) => {
             return;
         } else {
             const blog = new Blog({
+                post_img,
                 post_title: post_title.toLowerCase(),    // sanitize: convert email to lowercase
                 post_description,
                 post_author,
@@ -98,13 +99,16 @@ exports.findAllPosts = async (req, res) => {
 
 // Find Blog Post By Id
 exports.findBlogById = async (req, res) => {
-    const id = req.params._id;
+    
     try{
         //  The response body(i.e postId) will contain the user document.
         //  NOTE:  This is a query operation:- Blog.findById();
-        const postId = Blog.findById(id)
-        if (postId) {
-            return res.status(200).json(postId);
+        const id = req.params._id;
+        
+        const blogId = Blog.findById(id)
+        if (blogId) {
+             console.log("Blog Id as Variable", res.status(200).json(blogId));
+             return;
         } else {
             return res.status(404).json({ message: `Blog Post with ID: ${id} not found` });
         }

@@ -1,7 +1,3 @@
-html body {
-  margin: 0;
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,4 +10,221 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.logo {
+    z-index: 1;
+}
+
+.user-small {
+  color: #637381;
+}
+
+.btn-dark {
+  background-color: #212529;
+}
+
+.bg-dark {
+  background-color: #1C2434;
+}
+
+.bg-light{
+  background-color: white !important;
+}
+
+.text-dark {
+  color: #212B36 !important;
+  text-decoration: none;
+} 
+
+.text-light {
+  text-decoration: none;
+  color: rgba(222, 228, 238, 1) !important;
+}
+
+.text-white.ps-4 {
+  text-decoration: none;
+  color: #ffffff !important;
+}
+
+.text-secondary {
+  Color: #637381 !important;
+  text-decoration: none;
+}
+
+.text-secondary.m-0 {
+  font-weight: 500;
+  font-Size: 14px;
+  line-height: 22px;
+  color: #64748B;
+}
+
+.header-style {
+  font-size: 14px;
+  /* font-family: Satoshi; */
+  font-weight: 500;
+  line-height: 20px;
+  color: #8A99AF;
+}
+
+canvas.bar {
+  height: 100% !important;
+  max-height: 160px !important;
+}
+
+canvas.doughnut {
+  /* display: flex !important; */
+  max-height: 300px !important;
+}
+
+.engagements6.d-xl {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+.engagements6.d-lg {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+.engagements6.d-md {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 33px;
+}
+.engagements6.d-sm {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+/* Apply styles to your containers */
+aside.aside-container {
+  width: 20%; /* Adjust width as needed */
+  height: 100vh; /* 100% of the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border-right: 1px solid #ccc; /* Optional: Add a border to visually separate aside and section */
+}
+
+section.section-container {
+  flex: 0; /* Use flex to make the section take the remaining space */
+  height: 100vh; /* 100% of the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.pricing-body.text-center {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0px;  
+  color: #6F7CB2;
+}
+
+.text-center .text-secondary {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #5D6970;
+}
+
+footer {
+  background-color: #E7ECFF;
+}
+
+.footer .row.bg-info {
+  background-image: url("./assets/img/Rectangle.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white !important;
+}
+
+.pricing-price.text-primary {
+  color: #222F65;
+}
+
+.ui-kit.text-secondary {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #37447E;
+}
+
+.btn.bg-dark{
+  color: #111B47;
+}
+
+.rsm-svg {
+  border-bottom: 1px solid #E7E7E7;
+}
+
+.progress {
+  width: 100%;
+}
+
+.progress-bar.bg-success {
+  background-color: #3056D3 !important;
+}
+
+.row.m-0 .progress-bar.bg-primary {
+  background-color: #EFF4FB !important;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.row.m-0 .progress-bar.bg-light {
+  background-color: #FFFFFF !important;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+h6.fw-bold {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
+}
+
+.flex-row.text-dark {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.blog-post.card {
+  width: 30.33333% !important;
+  max-width: 30.33333% !important;
+  margin: 0 18px !important;
+}
+
+
+
+
+
+
+
+
+
+
+/* Works on Firefox */
+/* *{
+  scrollbar-width: thin;
+  scrollbar-color: blue white;
+} */
+
+/* Works on Chrome, Edge, and Safari */
+aside.aside-container::-webkit-scrollbar {
+  width: 2px;
+}
+
+aside.aside-container::-webkit-scrollbar-track {
+  background: white;
+}
+
+aside.aside-container::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 30px;
+  border: 1px solid blue;
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logo from './img/mern.ico';
-import "bootstrap/dist/css/bootstrap.min.css";
-import './app.css';
+import logo from './assets/img/mern.ico';
+
+
 
 
 export default function Header() {

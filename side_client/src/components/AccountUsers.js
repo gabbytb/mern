@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../app.css";
-import Header from '../header';
+import Header from '../Header';
 
 
 

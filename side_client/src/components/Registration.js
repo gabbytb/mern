@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "../app.css";
-import Header from '../header';
+import Header from '../Header';
 import axios from 'axios';
 // import $ from 'jquery';
 

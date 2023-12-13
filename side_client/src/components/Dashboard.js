@@ -1,50 +1,45 @@
 import React, { useEffect } from 'react';
-// import { HasAccess } from "@permify/react-role";
+import LeftAside from '../assets/dashboard/LeftAside';
+import RightSection from '../assets/dashboard/RightSection';
 
 
 
 
 
 
-const Dashboard = ({ loggedInUser }) => {
 
-  loggedInUser = JSON.parse(sessionStorage.getItem('userDetails'));
-  const userEmail = loggedInUser ? loggedInUser.email : logoutHandler();
+
+
+const Dashboard = () => {
+
+
+    useEffect(() => {
+        document.title = "Dashboard | Samuel Akinola Foundation";
+    }, []);
   
-
-  function logoutHandler() {
-    sessionStorage.clear();
-    window.location.replace("http://127.0.0.1:3000/user/login");
-  }
-
-
-  useEffect(() => {
-    document.title = "Dashboard | Samuel Akinola Foundation";
-  }, []);
-
-
-  return (
-    <div>
-      <h2>Dashboard</h2>
-      <p>Welcome, {userEmail}!</p>
-      {/* Add more dashboard content as needed */}
-  
-      <div className="button-container">
-        <div className="button logout-btn" onClick={logoutHandler}>
-          <div className='button'>Log out</div>
+      
+    return (
+        <>
+        <div className="container-xxl p-0">
+            <div className="row m-0">
+                <div className="col-sm-4 col-md-3 col-lg-3 p-0">
+                    <LeftAside />
+                </div>
+                <div className="col-sm-8 col-md-9 col-lg-9 p-0">
+                    <RightSection />
+                </div>
+            </div>
         </div>
-        {/* <HasAccess roles={["admin", "editor"]} permissions="contact-create" renderAuthFailed={null}>
-          <div className="button create-btn">Create Contact</div>
-        </HasAccess> */}
-      </div>
-    </div>
-  );
-};
-
-
+        </>
+    );
+}
 
 
 export default Dashboard;
+
+
+
+
 
 
 

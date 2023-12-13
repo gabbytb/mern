@@ -1,5 +1,8 @@
 module.exports = mongoose => {    
     var blogSchema = new mongoose.Schema({
+            post_img: {
+                type: String,
+            },
             post_title: {
                 type: String,
                 unique: true,

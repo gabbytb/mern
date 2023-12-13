@@ -12,8 +12,6 @@ require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const authController = require('./side_server/controllers/auth.controller');
-
 
 
 
@@ -86,13 +84,6 @@ app.get("/", (req, res) => {
 require("./side_server/routes/user.routes")(app);
 // IMPORT: ROUTE of BLOG-POST MODEL CRUD Operations
 require("./side_server/routes/blog.routes")(app);
-
-
-
-
-
-// Log-in Route
-app.post("/user/login", authController.login);
 
 
 

@@ -7,7 +7,7 @@ module.exports = app => {
     router.post("/admin/users/manage/create", users.create);
 
     // Login User
-    // router.post("/auth/login", users.logIn);
+    router.post("/auth/login", users.logIn);
     
     // Retrieve all Users 
     router.get("/admin/users/manage", users.findAll);

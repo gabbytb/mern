@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Header from '../header';
+import Header from '../Header';
+
 
 
 
@@ -17,39 +18,31 @@ const LoginLogic = ({ onLogin }) => {
 
 
     function handleOnKeyUp(e) {
-      console.clear();
-      console.log(`COLLECTING USER DETAILS.....\nEmail: ${email} \nPassword: ${password}`);
+        console.clear();
+        console.log(`COLLECTING USER DETAILS.....\nEmail: ${email} \nPassword: ${password}`);
     }
 
 
     const handleLogin = async () => {
+
       try {
-        const response = await axios.post('http://127.0.0.1:8000/user/login', { email, password, });
-        const { user, token } = response.data;
+        
+            const response = await axios.post("http://127.0.0.1:8000/v1/api/auth/login", { email, password });
+            
+            const { user, token } = response.data;                                  // Find the User by their token,                    
 
-        // Store the User objest in local storage
-        sessionStorage.setItem("userDetails", JSON.stringify(user));
-        sessionStorage.setItem('token', token);        
-      
-        // Store the token in local storage for future authenticated request
-        // localStorage.setItem('token', token);             
-  
+            sessionStorage.setItem("userDetails", JSON.stringify(user));            // Store the User objest in session storage
+            sessionStorage.setItem("token", token);                                 // Store the token in session storage for future authenticated request
+            onLogin({user});                                                         // Call the onLogin function passed as a prop with the user information
 
-        // Call the onLogin function passed as a prop with the user information
-        onLogin({user});
-  
-      
-        // Redirect the user to the dashboard or perform other actions upon successful login
-        console.log('Login successful', user);
+            window.location.replace("http://127.0.0.1:3000/admin/dashboard");        // Goto Admin Dashboard after Logging in
+            return;
 
-        // window.location.reload();
-        window.location.replace("http://127.0.0.1:3000/admin/dashboard");
-
-      } catch (error) {
-        // Handle login error
-        console.error('Login failed:', error.response.data);
-        setLoginErrMsg(error.response.data);
-      }
+        } catch (error) {
+            const errConsole = setLoginErrMsg(error.response.data);                   // Handle login error
+            console.error('Login failed: ', errConsole);                      
+            return;
+        }
     };
   
 
