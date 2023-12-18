@@ -51,7 +51,7 @@ module.exports = mongoose => {
                 type: String,
             }
         }, 
-        { timestamps: true }
+        { timestamps: true, versionKey: false }
     );
             
 

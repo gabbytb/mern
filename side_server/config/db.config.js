@@ -1,10 +1,10 @@
 // MongoDB URL:- Database Connection
-const DATABASE_NAME = 'mydatabase',  URL = `mongodb://localhost:27017/${DATABASE_NAME}`
+require("dotenv").config();
+let invalidDB = "no-database-connection";
+const fakeDB = `mongodb://127.0.0.1:27017/${invalidDB}`
+
+
+
 module.exports = {
-    url: URL || process.env.MY_DATABASE
+    url: process.env.MY_DATABASE || fakeDB
 };
-
-
-// module.exports = {
-//     url: "mongodb://127.0.0.1:27017/saf_db"
-// };

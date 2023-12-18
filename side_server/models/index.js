@@ -3,9 +3,9 @@
 // SUMMARY: mongoose can be used with Express and Node.js, to Model Data and connect it to the Database.
 
 
-// IMPORT DataBase Management System Uniform Resource Locator 
+// IMPORT DataBase URL (i.e Uniform Resource Locator)
 const dbConfig = require('../config/db.config.js');
-// IMPORT mongoose
+// IMPORT mongoose for all Object interactions with Database (i.e User Schema can now use mongoose during export E.g module.exports = mongoose => )
 const mongoose = require('mongoose');
 // IMPORT mongoose Global Promise
 mongoose.Promise = global.Promise;
@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 
 
 
-// Define Global Entry Data Type as "Object(s)".
+// Define Entry for all Data Type: as "Object(s)".
 const db = {};
 // Object(s) will use Mongoose Object, for Connection & Interaction with DataBase.
 db.mongoose = mongoose;     
